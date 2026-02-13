@@ -68,6 +68,9 @@ const router = express.Router();
 router.get(HIKINGPATH, async (req, res) =>{
     try{
         let response = await getHobby(req.originalUrl);
+        if(!response){
+            res.send({status: 500, body: "Error fetching data"})
+        }
         res.send({status: 200, body: response})
     }catch{
         res.send({status: 500, body: "Error fetching data"})

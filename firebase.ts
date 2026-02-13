@@ -1,14 +1,26 @@
 import admin from "firebase-admin";
 import dotenv from "dotenv"; 
 dotenv.config();
+let serviceAccount = {}
 
-const serviceAccount = require("./secrets.json");
+try { 
+  serviceAccount = require("./secrets.json"); 
+} catch (error: any) { 
+  if (error.code === "MODULE_NOT_FOUND") { 
+    console.warn("secrets.json not found, using empty config."); 
+    serviceAccount = {}; 
+  } else { throw error; } }
+
 const baseUrl = process.env.BASE_URL
+let db: any;
 
-admin.initializeApp({ 
+if (Object.keys(serviceAccount).length !== 0) { 
+  admin.initializeApp({ 
   credential: admin.credential.cert(serviceAccount),
   databaseURL: baseUrl
 })
+ db =admin.database();
+  }
 
 interface hikingSpot {
   name?: string,
@@ -20,9 +32,10 @@ interface hikingSpot {
 
 }
 
-const db =admin.database();
-
 const getHobby = async (hobbyPath: string) =>{
+  if (Object.keys(serviceAccount).length === 0) { 
+    return;
+  }
   let dbRef = await db.ref(hobbyPath);
   let getHobby = await dbRef.get();
   let hobbyData = await getHobby.val();
@@ -38,6 +51,9 @@ const getHobby = async (hobbyPath: string) =>{
 }
 
 const createHobby = async(bodyHobby: hikingSpot, hobbyPath: string) =>{
+  if (Object.keys(serviceAccount).length === 0) { 
+    return false;
+  }
   let dbRef = db.ref(hobbyPath)
   try{
     let keyName: any = bodyHobby.name
@@ -50,6 +66,7 @@ const createHobby = async(bodyHobby: hikingSpot, hobbyPath: string) =>{
   }catch{
     return false;
   }
+
 }
 
 export {
