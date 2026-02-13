@@ -4,7 +4,7 @@
 - API documentation based on **OpenAPI** standards
 - Classical repository documentation through a`README.md` file
 
-Throughout my career as a developer, I have created multiple documentation sets for internal processes and repositories. Since that documentation is confidential, I cannot share it as a reference of my work. However, most of the documentation I have written has been through GitHub, Confluence by Atlassian, or—less frequently but still with experience—using OpenAPI standards.
+Throughout my career as a developer, I have created multiple documentation sets for internal processes and repositories. Since that documentation is confidential, I cannot share it as a reference of my work. However, most of the documentation I have written has been through **GitHub**, **Confluence** by Atlassian, or—less frequently but still with experience—using **OpenAPI** standards.
 This repository contains two of the three types of documentation I am most proficient with. 
 
 ## Why Hobbitses?
